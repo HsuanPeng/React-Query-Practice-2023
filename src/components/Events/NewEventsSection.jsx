@@ -8,6 +8,8 @@ export default function NewEventsSection() {
   const { data, isPending, isError, error } = useQuery({
     queryKey: ["evnets"], // the key for the query to know individual queries
     queryFn: fetchEvents, // the function that will be called to fetch the data
+    staleTime: 5000, // default is 0, how long request will send after load into page
+    gcTime: 30000, // how long data stay in cache, default is 5 minutes
   });
 
   let content;
