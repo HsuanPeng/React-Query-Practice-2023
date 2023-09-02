@@ -12,7 +12,7 @@ export default function FindEventSection() {
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["events", { search: searchTerm }],
     queryFn: () => fetchEvents({ searchTerm }),
-    enabled: searchTerm !== undefined, // default is true, if false query will not be executed, use !== undefined instead of !!searchTerm can make sure if user enter input, and then clear input, user can get all items
+    enabled: searchTerm !== undefined, // 預設是false，只有在searchTerm有值時才會變成true => 啟動useQuery
   });
 
   function handleSubmit(event) {

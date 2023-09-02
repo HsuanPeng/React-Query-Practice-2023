@@ -6,10 +6,10 @@ import { fetchEvents } from "../../util/http.js";
 
 export default function NewEventsSection() {
   const { data, isPending, isError, error } = useQuery({
-    queryKey: ["evnets"], // the key for the query to know individual queries
-    queryFn: fetchEvents, // the function that will be called to fetch the data
-    staleTime: 5000, // default is 0, how long request will send after load into page
-    gcTime: 30000, // how long data stay in cache, default is 5 minutes
+    queryKey: ["evnets"], // 辨認個別useQuery的key，如果key一樣，就會從cache中取得資料
+    queryFn: fetchEvents,
+    staleTime: 5000, // 預設是0，渲染後多久要fetch
+    gcTime: 30000, // 資料停留在cache時長
   });
 
   let content;
