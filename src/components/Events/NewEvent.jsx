@@ -1,10 +1,10 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
-
 import Modal from "../UI/Modal.jsx";
 import EventForm from "./EventForm.jsx";
 import { createNewEvent } from "../../util/http.js";
 import ErrorBlock from "../UI/ErrorBlock.jsx";
+import { queryClient } from "../../util/http.js";
 
 export default function NewEvent() {
   const navigate = useNavigate();
@@ -12,6 +12,10 @@ export default function NewEvent() {
   // post method用mutate，get method用query，mutate不會在渲染時自動fetch，需要被啟動
   const { mutate, isPending, isError, error } = useMutation({
     mutationFn: createNewEvent,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["events"] }); // 如果post成功，會使queryKey中有events的data無效、強迫重新fetch
+      navigate("/events");
+    },
   });
 
   function handleSubmit(formData) {
