@@ -6,8 +6,8 @@ import { fetchEvents } from "../../util/http.js";
 
 export default function NewEventsSection() {
   const { data, isPending, isError, error } = useQuery({
-    queryKey: ["events"], // 辨認個別useQuery的key，如果key一樣，就會從cache中取得資料
-    queryFn: fetchEvents,
+    queryKey: ["events", { max: 3 }], // 辨認個別useQuery的key，如果key一樣，就會從cache中取得資料
+    queryFn: ({ queryKey }) => fetchEvents(queryKey[1]), // queryFn的參數是queryKey }),
     staleTime: 5000, // 預設是0，渲染後多久要fetch
     gcTime: 30000, // 資料停留在cache時長
   });
