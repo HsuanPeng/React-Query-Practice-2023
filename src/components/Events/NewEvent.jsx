@@ -13,7 +13,8 @@ export default function NewEvent() {
   const { mutate, isPending, isError, error } = useMutation({
     mutationFn: createNewEvent,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["events"] }); // 如果post成功，會使queryKey中有events的data無效、強迫重新fetch
+      // 如果post成功，會使queryKey中有events的data無效、強迫重新fetch
+      queryClient.invalidateQueries({ queryKey: ["events"] });
       navigate("/events");
     },
   });
